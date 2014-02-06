@@ -1,17 +1,37 @@
-body
-{
+@import url(http://fonts.googleapis.com/css?family=Sanchez);
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans);
+
+body {
+    background-color: #A8D0D7;
+	overflow-y: hidden;
+    overflow-x: scroll;
+    min-width: 500px;
+    font-family: 'Noto Sans', sans-serif !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+html {
 	overflow: hidden;
 }
 
-html
-{
-	overflow: hidden;
+td {
+    padding: 5px;
 }
 
-.theBlock
-{
-	height:900px;
-	width:900px;
-	background-color: blue;
+.desc-cell {
+    width: 400px;
 }
 
+.dollar-cell {
+    padding: 0px !important;
+    text-align: right;
+}
+
+input[name="amount"] {
+    background-color: #CD3A49;
+    width: 50px;
+    margin: auto 5px;
+    line-height: 30px;
+    font-size: 1em;
+    border: none;
+}

@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    $('.js-list').append("SHIRI!!");
     chrome.tabs.query({
         active: true,
         currentWindow: true
@@ -13,5 +12,5 @@ $(document).ready(function() {
 
 /* Update the relevant fields with the new data */
 function setURLSInfo(forms) {
-    $('.js-list').append(forms);
+    $('.js-list').html(forms);
 }
