@@ -3,7 +3,10 @@
   "name": "DonateForward",
   "description": "This extension allows you to donate one page ahead of time.",
   "version": "1.0",
-
+  "browser_action": {
+    "default_icon" : "icon.png",
+    "default_popup" : "popup.html"
+  },
   "content_scripts": [
     {
         "matches": ["http://*/*", "https://*/*"],
