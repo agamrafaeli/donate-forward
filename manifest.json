@@ -9,5 +9,11 @@
         "matches": ["http://*/*", "https://*/*"],
         "js": ["jquery-min.js","content.js"]
     }
-  ]
+  ],
+
+  "browser_action": {
+    "default_title": "DonateForward",
+    "default_popup": "popup.html",
+    "default_icon": "images/icon.png"
+  }
 }
