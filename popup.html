@@ -1,11 +1,25 @@
 <html>
-    <title> Donate Forward </title>    
-    <script src="jquery-min.js" type="text/javascript"></script>
-    <script src="popup.js" type="text/javascript"></script>
-  <body>
-    <p>Hello World!</p>
-    <div class="js-list">
-        hello
-    </div>
-  </body>
+<title> Donate Forward </title>
+<link href="popup.css" rel="stylesheet" type="text/css">
+<script src="jquery-min.js" type="text/javascript"></script>
+<script src="popup.js" type="text/javascript"></script>
+<body>
+  <p>Hello World!</p>
+  <div class="js-list">
+  </div>
+  <table border=1>
+    <tr>
+      <td></td>
+      <td>Their Email</td>
+      <td><a onclick="goTo()">Who?</a></td>
+      <td>Link</td>
+    </tr>
+    <tr>
+      <form action="https://www.paypal.com/cgi-bin/webscr" enctype="application/x-www-form-urlencoded" method="post">
+        <input type="image" alt="Make payments with PayPal, it's fast, free, and secure!" name="submit" src="http://c65f1acec71474d68bba-2f93ff0e2daf8223612b6ebd94ef7653.r95.cf2.rackcdn.com/dlf/en/images/paypal-donate-button.png">
+      </form>
+    </tr>
+
+  </table>
+</body>
 </html>

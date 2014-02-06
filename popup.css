@@ -1,0 +1,17 @@
+body
+{
+	overflow: hidden;
+}
+
+html
+{
+	overflow: hidden;
+}
+
+.theBlock
+{
+	height:900px;
+	width:900px;
+	background-color: blue;
+}
+

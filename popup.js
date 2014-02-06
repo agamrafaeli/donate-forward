@@ -12,6 +12,6 @@ $(document).ready(function() {
 });
 
 /* Update the relevant fields with the new data */
-function setURLSInfo(info) {
-    $('.js-list').append(info);
+function setURLSInfo(forms) {
+    $('.js-list').append(forms);
 }
