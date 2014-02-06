@@ -1,4 +1,4 @@
-var urls;
+var forms = "";
 
 $(document).ready(function ()
 {
@@ -11,7 +11,7 @@ $(document).ready(function ()
 				$($(data)).find("form[action='https://www.paypal.com/cgi-bin/webscr']").each(function() {
 					var inputs = $(this).find('input');
 					$(this).empty().append(inputs);
-					alert($(this)[0].outerHTML);
+					forms += $(this)
 				});
 			}
 		});
@@ -28,6 +28,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, response) {
     /* First, validate the message's structure */
     if (msg.from && (msg.from === "popup")
             && msg.subject && (msg.subject === "URLSInfo")) {
-        response(urls);
+        response(forms);
     }
 });
