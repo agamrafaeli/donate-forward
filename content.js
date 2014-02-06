@@ -50,6 +50,3 @@ function scanDonateFormsInLink(url){
 		}
 	});
 }
-function parseOldForm(oldForm) {
-
-}

@@ -1,11 +1,28 @@
 <html>
-    <title> Donate Forward </title>    
-    <script src="jquery-min.js" type="text/javascript"></script>
-    <script src="popup.js" type="text/javascript"></script>
-  <body>
-    <p>Hello World!</p>
-    <div class="js-list">
-        hello
-    </div>
-  </body>
+<title> Donate Forward </title>
+<link href="popup.css" rel="stylesheet" type="text/css">
+<script src="jquery-min.js" type="text/javascript"></script>
+<script src="popup.js" type="text/javascript"></script>
+<body>
+  <div class="forms-container js-list">
+    <table>
+      <tr>
+        <form action="https://www.paypal.com/cgi-bin/webscr" enctype="application/x-www-form-urlencoded" method="post">
+          <td class="desc-cell">Dalai Lama Foundation- General Fund</td>
+          <td class="dollar-cell">$</td>
+          <td><input id="amount" type="text" maxlength="8" name="amount" size="9"></td>
+          <td><input type="image" alt="Make payments with PayPal, it's fast, free, and secure!" name="submit" src="http://c65f1acec71474d68bba-2f93ff0e2daf8223612b6ebd94ef7653.r95.cf2.rackcdn.com/dlf/en/images/paypal-donate-button.png"></td>
+        </form>
+      </tr>
+      <tr>
+        <form action="https://www.paypal.com/cgi-bin/webscr" enctype="application/x-www-form-urlencoded" method="post">
+          <td class="desc-cell">Dalai Lama Fund</td>
+          <td class="dollar-cell">$</td>
+          <td><input id="amount" type="text" maxlength="8" name="amount" size="9"></td>
+          <td><input type="image" alt="Make payments with PayPal, it's fast, free, and secure!" name="submit" src="http://c65f1acec71474d68bba-2f93ff0e2daf8223612b6ebd94ef7653.r95.cf2.rackcdn.com/dlf/en/images/paypal-donate-button.png"></td>
+        </form>
+      </tr>
+    </table>
+  </div>
+</body>
 </html>
