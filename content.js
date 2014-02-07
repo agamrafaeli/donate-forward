@@ -16,47 +16,66 @@ $(document).ready(function ()
 	var domain = document.location.hostname;
     var filter = false;
 
+    // Check if domain needs to be filtered
     for (var i = 0; i < blacklist.length; i=i+1) {
         if (domain.substring(domain.length-blacklist[i].length) == blacklist[i]) {
             filter = true;
         }
     }
     if (!filter) {
-    	$.ajax({
-    			url: "https://www.google.co.il/search?q=site:"+domain+"+paypal+donate",
-    			dataType: "html",
-    			success: function(data) {
-    				var firstLinkIndex = data.indexOf("http://"+domain);
-    				if (firstLinkIndex!=-1){
-    					var LinkLength = data.indexOf('"', firstLinkIndex) - firstLinkIndex;
-    					var urlWithDonateForm = data.substr(firstLinkIndex, LinkLength);
-    					//alert("i've found this link with google: "+urlWithDonateForm);
-    					scanDonateFormsInLink(urlWithDonateForm, onGoogleFirstLinkScanEnd);
-    				}else{
-    					scanAllLinks();
-    				}
-    				
-    			}
-    		});
+
+        // Search current page
+        scanDonateFormsInLink(document.location, onCurrentPageScanEnd);
     }
 });
 
-function onGoogleFirstLinkScanEnd(result){
-	if (!result){
+function onCurrentPageScanEnd(result) {
+    if (!result) {
+
+        // Scan hostname's first link on google
+        scanGoogleFirstLink(document.location.hostname);
+    }
+}
+
+function scanGoogleFirstLink(domain) {
+    $.ajax({
+            url: "https://www.google.co.il/search?q=site:" + domain + "+paypal+donate",
+            dataType: "html",
+            success: function(data) {
+                var firstLinkIndex = data.indexOf("http://" + domain);
+                if (firstLinkIndex!=-1) {
+                    var LinkLength = data.indexOf('"', firstLinkIndex) - firstLinkIndex;
+                    var urlWithDonateForm = data.substr(firstLinkIndex, LinkLength);
+                    scanDonateFormsInLink(urlWithDonateForm, onGoogleFirstLinkScanEnd);
+                } else {
+
+                    // If nothing found, scan all links
+                    scanAllLinks();
+                }
+                
+            }
+        });
+}
+
+function onGoogleFirstLinkScanEnd(result) {
+	if (!result) {
+
+        // If nothing found, scan all links
 		scanAllLinks();
-	}else{
-		//alert("found it! good.. so i don't read more links");
 	}
 }
 
-function scanAllLinks(){
-	//alert("scanning all links :(");
+function scanAllLinks() {
+    var hostnames = [];
 	$("a[href]").each(function(index,value) {
-		scanDonateFormsInLink(value.href, function() {});
+        if (jQuery.inArray(this.hostname, hostnames) == -1) {
+            hostnames.push(this.hostname);
+            scanDonateFormsInLink(value.href, function() {});
+        }
 	})
 }
 
-function scanDonateFormsInLink(url, callback){
+function scanDonateFormsInLink(url, callback) {
 	$.ajax({
 		url: url,
 		dataType: "html",
