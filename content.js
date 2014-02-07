@@ -3,9 +3,12 @@ var blacklist = ["google.com", "yahoo.com", "bing.com"];
 /* Listen for message from the popup */
 chrome.runtime.onMessage.addListener(function(msg, sender, response) {
     /* First, validate the message's structure */
-    if (msg.from && (msg.from === "popup")
-            && msg.subject && (msg.subject === "getDonateFormsFromContent")) {
-        response(allDonateForms);
+    if (msg.from && (msg.from === "popup") && msg.subject){
+        if (msg.subject === "getDonateFormsFromContent") {
+	        response(allDonateForms);
+	    }else if(msg.subject === "openPage"){
+	    	window.location = msg.data;
+	    }
     }
 });
 
