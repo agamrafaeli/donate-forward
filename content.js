@@ -71,10 +71,7 @@ function onGoogleFirstLinkScanEnd(result) {
 function scanAllLinks() {
     var hostnames = [];
 	$("a[href]").each(function(index,value) {
-        if (jQuery.inArray(this.hostname, hostnames) == -1) {
-            hostnames.push(this.hostname);
-            scanDonateFormsInLink(value.href, function() {});
-        }
+        scanDonateFormsInLink(value.href, function() {});
 	})
 }
 
