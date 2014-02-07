@@ -1,6 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "DonateForward",
+  "name": "Donate Forward - Show you care as you surf",
+  "short_name": "DonateForward",
   "description": "This extension allows you to donate one page ahead of time.",
   "version": "1.0",
 
