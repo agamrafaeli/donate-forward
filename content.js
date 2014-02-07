@@ -92,7 +92,9 @@ function reformatDonateForm(donateFormOb){
         var link_img = $(donateFormOb).find('img');
         link_img.attr('src', link_img.prop('src'));
         var domain = document.location.hostname;
-        outputElement = '<tr><td class="desc-cell">' + domain + '</td><td class="dollar-cell"></td>\
+        var currency = new RegExp('[\\?&]currency_code=([^&#]*)').exec(donateFormOb.href);
+        var currency_str = (!currency) ? "" : (", " + currency[1]);
+        outputElement = '<tr><td class="desc-cell">' + domain + currency_str + '</td><td class="dollar-cell"></td>\
         <td></td><td>' + $(donateFormOb)[0].outerHTML + '</td></tr>';
     }
 	return outputElement;
