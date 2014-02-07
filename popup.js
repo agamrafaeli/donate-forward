@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 /* Update the relevant fields with the new data */
 function setDonateForm(donateForm) {
-    $('.js-list').append(donateForm);
+    $('.js-list table:first-child').append(donateForm);
 }
 
 chrome.runtime.onMessage.addListener(function(msg, sender) {
