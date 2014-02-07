@@ -5,12 +5,21 @@ $(document).ready(function() {
     }, function(tabs) {
         chrome.tabs.sendMessage(
                 tabs[0].id,
-                { from: "popup", subject: "URLSInfo" },
-                setURLSInfo);
+                { from: "popup", subject: "getDonateFormsFromContent" },
+                setDonateForm);
     });
 });
 
 /* Update the relevant fields with the new data */
-function setURLSInfo(forms) {
-    $('.js-list').html(forms);
+function setDonateForm(donateForm) {
+    $('.js-list table:first-child').append(donateForm);
 }
+
+chrome.runtime.onMessage.addListener(function(msg, sender) {
+    /* First, validate the message's structure */
+    if (msg.from && (msg.from === "content") && msg.subject){
+    	if (msg.subject === "donateForm"){
+    		setDonateForm(msg.data);
+    	}
+    }
+});
