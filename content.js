@@ -53,10 +53,12 @@ function scanDonateFormsInLink(url, callback){
 		dataType: "html",
 		success: function(data) {
 			var foundForm = false;
-			$($(data)).find("form[action='https://www.paypal.com/cgi-bin/webscr']").each(function() {
+			$($(data)).find("form[action='https://www.paypal.com/cgi-bin/webscr'], a[href^='https://www.paypal.com/cgi-bin/webscr']").each(function() {
 				foundForm = true;
-				var inputs = $(this).find(':input');
-				$(this).empty().append(inputs);
+                if ($(this).is("form")) {
+    				var inputs = $(this).find(':input');
+    				$(this).empty().append(inputs);
+                }
 				var formattedForm = reformatDonateForm(this);
 				allDonateForms.push(formattedForm);
 		        chrome.runtime.sendMessage({
@@ -73,14 +75,25 @@ function scanDonateFormsInLink(url, callback){
 
 function reformatDonateForm(donateFormOb){
 	console.log($(donateFormOb)[0].outerHTML);
-	$(itemNameOb).remove('[name="amount"]');
-	var itemNameOb = $(donateFormOb).find('[name="item_name"]').removeAttr("type").wrap('<td class="desc-cell"></td>');
-	$(itemNameOb).after(
-'<td class="dollar-cell">$</td>\
-<td><input id="amount" type="text" maxlength="8" name="amount" size="9"></td>\
-<td><input id="newSubmit" type="image" alt="Make payments with PayPal, it\'s fast, free, and secure!" name="submit" src="http://c65f1acec71474d68bba-2f93ff0e2daf8223612b6ebd94ef7653.r95.cf2.rackcdn.com/dlf/en/images/paypal-donate-button.png"></td>');
-	
-	$(donateFormOb).find(".newSubmit").attr("onClick", $(donateFormOb).find("input[type='image']").eq(0).attr("onClick"));
-	var outputElement = "<tr>"+$(donateFormOb)[0].outerHTML+"</tr>";
+    var outputElement;
+
+    if ($(donateFormOb).is("form")) {
+    	$(donateFormOb).remove('[name="amount"]');
+    	var itemNameOb = $(donateFormOb).find('[name="item_name"]').removeAttr("type").wrap('<td class="desc-cell"></td>');
+    	$(itemNameOb).after(
+    '<td class="dollar-cell">$</td>\
+    <td><input id="amount" type="text" maxlength="8" name="amount" size="9"></td>\
+    <td><input id="newSubmit" type="image" alt="Make payments with PayPal, it\'s fast, free, and secure!" name="submit" src="http://c65f1acec71474d68bba-2f93ff0e2daf8223612b6ebd94ef7653.r95.cf2.rackcdn.com/dlf/en/images/paypal-donate-button.png"></td>');
+    	
+    	$(donateFormOb).find(".newSubmit").attr("onClick", $(donateFormOb).find("input[type='image']").eq(0).attr("onClick"));
+        outputElement = "<tr>"+$(donateFormOb)[0].outerHTML+"</tr>";
+
+    } else {
+        var link_img = $(donateFormOb).find('img');
+        link_img.attr('src', link_img.prop('src'));
+        var domain = document.location.hostname;
+        outputElement = '<tr><td class="desc-cell">' + domain + '</td><td class="dollar-cell"></td>\
+        <td></td><td>' + $(donateFormOb)[0].outerHTML + '</td></tr>';
+    }
 	return outputElement;
 }
