@@ -41,7 +41,7 @@ function onGoogleFirstLinkScanEnd(result){
 }
 
 function scanAllLinks(){
-	alert("scanning all links :(");
+	//alert("scanning all links :(");
 	$("a[href]").each(function(index,value) {
 		scanDonateFormsInLink(value.href, function() {});
 	})
