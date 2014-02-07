@@ -1,5 +1,5 @@
 var allDonateForms = [];
-
+var blacklist = ["google.com", "yahoo.com", "bing.com"];
 /* Listen for message from the popup */
 chrome.runtime.onMessage.addListener(function(msg, sender, response) {
     /* First, validate the message's structure */
@@ -14,22 +14,31 @@ chrome.runtime.onMessage.addListener(function(msg, sender, response) {
 $(document).ready(function ()
 {
 	var domain = document.location.hostname;
-	$.ajax({
-			url: "https://www.google.co.il/search?q=site:"+domain+"+paypal+donate",
-			dataType: "html",
-			success: function(data) {
-				var firstLinkIndex = data.indexOf("http://"+domain);
-				if (firstLinkIndex!=-1){
-					var LinkLength = data.indexOf('"', firstLinkIndex) - firstLinkIndex;
-					var urlWithDonateForm = data.substr(firstLinkIndex, LinkLength);
-					//alert("i've found this link with google: "+urlWithDonateForm);
-					scanDonateFormsInLink(urlWithDonateForm, onGoogleFirstLinkScanEnd);
-				}else{
-					scanAllLinks();
-				}
-				
-			}
-		});
+    var filter = false;
+
+    for (var i = 0; i < blacklist.length; i=i+1) {
+        if (domain.substring(domain.length-blacklist[i].length) == blacklist[i]) {
+            filter = true;
+        }
+    }
+    if (!filter) {
+    	$.ajax({
+    			url: "https://www.google.co.il/search?q=site:"+domain+"+paypal+donate",
+    			dataType: "html",
+    			success: function(data) {
+    				var firstLinkIndex = data.indexOf("http://"+domain);
+    				if (firstLinkIndex!=-1){
+    					var LinkLength = data.indexOf('"', firstLinkIndex) - firstLinkIndex;
+    					var urlWithDonateForm = data.substr(firstLinkIndex, LinkLength);
+    					//alert("i've found this link with google: "+urlWithDonateForm);
+    					scanDonateFormsInLink(urlWithDonateForm, onGoogleFirstLinkScanEnd);
+    				}else{
+    					scanAllLinks();
+    				}
+    				
+    			}
+    		});
+    }
 });
 
 function onGoogleFirstLinkScanEnd(result){

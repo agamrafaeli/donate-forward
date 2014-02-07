@@ -35,7 +35,7 @@ input[name="item_name"] {
 }
 
 input[name="amount"] {
-    background-color: #EE3B48;
+    background-color: #FBF7EC;
     width: 50px;
     margin: auto 5px;
     line-height: 30px;
