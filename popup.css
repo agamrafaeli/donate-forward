@@ -1,8 +1,7 @@
-@import url(http://fonts.googleapis.com/css?family=Sanchez);
 @import url(http://fonts.googleapis.com/css?family=Noto+Sans);
 
 body {
-    background-color: #A8D0D7;
+    background-color: #93DADF;
 	overflow-y: hidden;
     overflow-x: scroll;
     min-width: 500px;
@@ -27,11 +26,24 @@ td {
     text-align: right;
 }
 
+input[name="item_name"] {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    font-size: 1em;
+    font-weight: normal;
+}
+
 input[name="amount"] {
-    background-color: #CD3A49;
+    background-color: #EE3B48;
     width: 50px;
     margin: auto 5px;
     line-height: 30px;
     font-size: 1em;
     border: none;
+}
+
+select {
+    background-color: transparent;
+    font-size: 1em;
 }
